@@ -8,6 +8,13 @@ public class Program extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	public Program()	{
+		initUI();
+	}
+	
+	private void initUI()	{
+		
+		setJMenuBar(new MenuBar());
+		
 		setTitle("Calendar");
 		setSize(800, 600);
 	    setLocationRelativeTo(null);

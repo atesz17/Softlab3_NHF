@@ -23,7 +23,7 @@ public class MenuBar extends JMenuBar {
 			 */
 		
 	    	JMenuItem openMI = new JMenuItem("Open...");
-			openMI.setMnemonic(KeyEvent.VK_E);
+			openMI.setMnemonic(KeyEvent.VK_O);
 	        openMI.setToolTipText("Open file...");
 	        
 	        openMI.addActionListener(new ActionListener()	{

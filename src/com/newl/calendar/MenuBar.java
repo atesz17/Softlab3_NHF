@@ -18,6 +18,27 @@ public class MenuBar extends JMenuBar {
 		JMenu fileM = new JMenu("File");
 		fileM.setMnemonic(KeyEvent.VK_F);
 		
+			/*
+			 *  OPEN...
+			 */
+		
+	    	JMenuItem openMI = new JMenuItem("Open...");
+			openMI.setMnemonic(KeyEvent.VK_E);
+	        openMI.setToolTipText("Open file...");
+	        
+	        openMI.addActionListener(new ActionListener()	{
+	        	@Override
+	            public void actionPerformed(ActionEvent event) {
+	               
+	            }
+	        });
+	        
+	        fileM.add(openMI);
+		
+	        /*
+			 *  EXIT
+			 */
+	        
 			JMenuItem exitMI = new JMenuItem("Exit");
 			exitMI.setMnemonic(KeyEvent.VK_E);
 	        exitMI.setToolTipText("Exit calendar");
@@ -30,6 +51,7 @@ public class MenuBar extends JMenuBar {
 	        });
 	        
 	        fileM.add(exitMI);
+	        
 	        
         this.add(fileM);
 	}

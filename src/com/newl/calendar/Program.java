@@ -1,6 +1,9 @@
 package com.newl.calendar;
 
 import javax.swing.JFrame;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+
 import java.awt.EventQueue;
 
 public class Program extends JFrame {
@@ -12,6 +15,13 @@ public class Program extends JFrame {
 	}
 	
 	private void initUI()	{
+		
+		 try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException | InstantiationException
+				| IllegalAccessException | UnsupportedLookAndFeelException e) {
+			e.printStackTrace();
+		}
 		
 		setJMenuBar(new MenuBar());
 		

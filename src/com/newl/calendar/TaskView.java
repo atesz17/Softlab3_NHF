@@ -18,8 +18,6 @@ public class TaskView extends JFrame {
 	
 	private void initComponents()	{
 		
-		data.tryy();
-		
 		setLayout(new BorderLayout());
 		
 		JTable table = new JTable(data);
@@ -28,6 +26,8 @@ public class TaskView extends JFrame {
 		add(scrollPane);
 		table.setFillsViewportHeight(true);
         table.setVisible(true);
+        
+        System.out.println("initComponents Done!");
 	}
 	
 	public TaskView()	{
@@ -37,7 +37,9 @@ public class TaskView extends JFrame {
 		data = new TaskModel();
 		
 		initComponents();
-		setMinimumSize(new Dimension(500, 200));
+		setMinimumSize(new Dimension(1300, 760));
+		
+		System.out.println("TaskView() cnstr Done!");
 	}
 
 	public static void main(String[] args) {

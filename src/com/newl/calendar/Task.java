@@ -3,24 +3,25 @@ package com.newl.calendar;
 import java.io.Serializable;
 import java.util.Calendar;
 
-public class Task implements Serializable {
-
-	private static final long serialVersionUID = 1L;
+public class Task implements Serializable, Comparable<Task> {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2363842128403009351L;
+	
 	
 	private String title;
-	private String description;
+	private String notes;
 	private Calendar date;
+	private Calendar remindMeFromNowOn;
 	
-	public Task(String t, String d, Calendar da)	{
+	public Task(String t, String d, Calendar da, Calendar remind)	{
 		
 		title = t;
-		description = d;
+		notes = d;
 		date = da;
-	}
-
-	@Override
-	public String toString() {
-		return "Event [title=" + title + ", description=" + description + "date=" + date +"]";
+		remindMeFromNowOn = remind;
 	}
 
 	public String getTitle() {
@@ -31,12 +32,12 @@ public class Task implements Serializable {
 		this.title = title;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getNotes() {
+		return notes;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setNotes(String n) {
+		this.notes = n;
 	}
 	
 	public Calendar getDate()	{
@@ -46,4 +47,42 @@ public class Task implements Serializable {
 	public void setDate(Calendar c)	{
 		this.date = c;
 	}
+	
+	public Calendar getRemindDate()	{
+		return remindMeFromNowOn;
+	}
+	
+	public void setRemindDate(Calendar r)	{
+		this.remindMeFromNowOn = r;
+	}
+	
+	public Boolean isUrgent()	{
+		if (Calendar.getInstance().after(remindMeFromNowOn))
+			return true;
+		return false;
+	}
+
+	/**
+	 * Comparable interfesz fuggvenyenek megvalositasa. Akkor "kisebb" egy task a masiknal, ha az remindMeFromNowOn date-je elobb van
+	 */
+	@Override
+	public int compareTo(Task t) {
+		
+		if (this.remindMeFromNowOn.before(t.remindMeFromNowOn))
+			return -1;
+		else if (this.remindMeFromNowOn.after(t.remindMeFromNowOn))
+			return 1;
+		else
+			return 0;
+	}
+	
+	@Override
+	public boolean equals(Object other)	{
+		
+		if (compareTo((Task)other) == 0)
+			return true;
+		return false;
+		
+	}
+	
 }

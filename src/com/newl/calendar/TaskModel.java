@@ -2,7 +2,7 @@ package com.newl.calendar;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
+import java.util.Collections;
 
 import javax.swing.table.AbstractTableModel;
 
@@ -16,10 +16,6 @@ public class TaskModel extends AbstractTableModel {
 	private String[] columnNames = {"Title", "Description", "Date"};
 	
 	private ArrayList<Task> tasks = new ArrayList<Task>();
-	
-	public void tryy()	{
-		tasks.add(new Task("cime", "leirasa", Calendar.getInstance()));
-	}
 
 	@Override
 	public int getColumnCount() {
@@ -38,7 +34,7 @@ public class TaskModel extends AbstractTableModel {
 		
 		switch(columnIndex){
 		case 0:		return t.getTitle();
-		case 1: 	return t.getDescription();
+		case 1: 	return t.getNotes();
 		default:	return t.getDate();
 		}
 	}
@@ -58,9 +54,20 @@ public class TaskModel extends AbstractTableModel {
 		}
 	}
 	
-	public void addTask(Task t)	{
+	/**
+	 * Uj Task hozzaadasa az ArrayListhez.
+	 * Miutan a Task hozzalett adva a tombhoz, az sorbarendezi remindMeFromNowOn datum alapjan.
+	 * @param t A Task amit be szeretnenk szurni.
+	 * @throws TaskAlreadyInDatabase Ha a megadott task mar letezik.
+	 */
+	public void addTask(Task t) throws TaskAlreadyInDatabase	{
+		
+		if (tasks.contains(t))
+			throw new TaskAlreadyInDatabase();
 		
 		tasks.add(t);
+		Collections.sort(tasks, new TaskComparator());
+	
 		fireTableRowsInserted(tasks.size() - 1, tasks.size() - 1);
 	}
 

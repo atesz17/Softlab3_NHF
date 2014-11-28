@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 
 import javax.swing.BoxLayout;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -23,40 +24,87 @@ public class TaskView extends JFrame {
 	
 	private void initComponents()	{
 		
+		/**
+		 * GLOBAL
+		 */
 		setLayout(new BorderLayout());
 		
+		/**
+		 * WEST OLDALA A BORDERLAYOUTNAK
+		 */
+		JPanel tablePanel = new JPanel();
+		tablePanel.setLayout(new BorderLayout());
+		
 		JTable table = new JTable(data);
-		add(BorderLayout.CENTER, table);
-		
-		JScrollPane scrollPane = new JScrollPane(table);
-		add(scrollPane);
-		
 		table.setFillsViewportHeight(true);
         table.setVisible(true);
+		JScrollPane scrollPane = new JScrollPane(table);
+        tablePanel.add(scrollPane, BorderLayout.CENTER);
+        //tablePanel.setPreferredSize(new Dimension(400, 400)); ez valamiert nem mukodik
+        add(tablePanel); // itt nincs masodik parameter es ugy tunik kitolti a helyet, szval meno
+        
+        /**
+         * EAST OLDALA A BORDERLAYOUTNAK
+         */
         
         JPanel inputPanel = new JPanel();
         add(inputPanel, BorderLayout.EAST);
         inputPanel.setLayout(new BoxLayout(inputPanel, BoxLayout.Y_AXIS));
         
+        JPanel inputPanelTitle = new JPanel();
+        inputPanelTitle.add(new JLabel("Parameters"));
+        inputPanel.add(inputPanelTitle);
+        
+        JPanel titlePanel = new JPanel();
         JTextField titleField = new JTextField(20);
+        titlePanel.add(new JLabel("Title:"));
+        titlePanel.add(titleField);
+        inputPanel.add(titlePanel);
+        
+        JPanel notesPanel = new JPanel();
         JTextField notesField = new JTextField(20);
-        inputPanel.add(new JLabel("Title:"));
-        inputPanel.add(titleField);
-        inputPanel.add(new JLabel("Notes:"));
-        inputPanel.add(notesField);
+        notesPanel.add(new JLabel("Notes:"));
+        notesPanel.add(notesField);
+        inputPanel.add(notesPanel);
         
-        JComboBox<Integer> dateY = new JComboBox();
-        JComboBox<String> dateM = new JComboBox();
-        JComboBox<Integer> dateD = new JComboBox();
-        inputPanel.add(dateY);
-        inputPanel.add(dateM);
-        inputPanel.add(dateD);
+        JPanel datesPanel = new JPanel();
+        datesPanel.setLayout(new BoxLayout(datesPanel, BoxLayout.Y_AXIS));
         
-        JComboBox<Integer> remindY = new JComboBox();
-        JComboBox<String> remindM = new JComboBox();
-        JComboBox<Integer> remindD = new JComboBox();
+        datesPanel.add(new JLabel("Due date:"));
+        JPanel dueDatePanel = new JPanel();        
+        JComboBox<Integer> dateY = new JComboBox<Integer>();
+        JComboBox<String> dateM = new JComboBox<String>();
+        JComboBox<Integer> dateD = new JComboBox<Integer>();
+        dueDatePanel.add(new JLabel("Year:"));
+        dueDatePanel.add(dateY);
+        dueDatePanel.add(new JLabel("Month:"));
+        dueDatePanel.add(dateM);
+        dueDatePanel.add(new JLabel("Day:"));
+        dueDatePanel.add(dateD);
+        datesPanel.add(dueDatePanel);
         
+        datesPanel.add(new JLabel("Remind me after:"));
+        JPanel remindDatePanel = new JPanel();        
+        JComboBox<Integer> remindY = new JComboBox<Integer>();
+        JComboBox<String> remindM = new JComboBox<String>();
+        JComboBox<Integer> remindD = new JComboBox<Integer>();
+        remindDatePanel.add(new JLabel("Year:"));
+        remindDatePanel.add(remindY);
+        remindDatePanel.add(new JLabel("Month:"));
+        remindDatePanel.add(remindM);
+        remindDatePanel.add(new JLabel("Day:"));
+        remindDatePanel.add(remindD);
+        datesPanel.add(remindDatePanel);
         
+        inputPanel.add(datesPanel);
+        
+        JPanel buttonPanel = new JPanel();
+        JButton addButton = new JButton("Add");
+        buttonPanel.add(addButton);
+        
+        inputPanel.add(buttonPanel);
+        
+        data.tryy();
         System.out.println("initComponents Done!");
 	}
 	
@@ -67,7 +115,8 @@ public class TaskView extends JFrame {
 		data = new TaskModel();
 		
 		initComponents();
-		setMinimumSize(new Dimension(1300, 760));
+		setPreferredSize(new Dimension(1300, 760));
+		setMinimumSize(new Dimension(640, 480));
 		
 		System.out.println("TaskView() cnstr Done!");
 	}

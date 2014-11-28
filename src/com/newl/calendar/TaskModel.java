@@ -71,4 +71,8 @@ public class TaskModel extends AbstractTableModel {
 		fireTableRowsInserted(tasks.size() - 1, tasks.size() - 1);
 	}
 
+	public void tryy()	{
+		for (int i = 0; i < 99; i++)
+			tasks.add(new Task("a" + i,"be" + i, Calendar.getInstance(), Calendar.getInstance()));
+	}
 }

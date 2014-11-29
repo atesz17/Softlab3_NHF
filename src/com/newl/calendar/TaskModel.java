@@ -71,6 +71,11 @@ public class TaskModel extends AbstractTableModel {
 		tasks.add(t);
 		Collections.sort(tasks, new TaskComparator());
 	
+		// DEBUG
+		// Kiirjuk az elemeket, amiket tarolunk
+		for (Task ct : tasks)
+			System.out.println(ct);
+		
 		fireTableRowsInserted(tasks.size() - 1, tasks.size() - 1);
 	}
 	

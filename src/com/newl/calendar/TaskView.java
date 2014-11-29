@@ -147,7 +147,7 @@ public class TaskView extends JFrame {
         
         inputPanel.add(buttonPanel);
         
-        data.tryy();
+        //data.tryy();
         System.out.println("initComponents Done!");
 	}
 	

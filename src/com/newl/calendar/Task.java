@@ -82,7 +82,11 @@ public class Task implements Serializable, Comparable<Task> {
 		if (compareTo((Task)other) == 0)
 			return true;
 		return false;
-		
+	}
+	
+	@Override
+	public String toString()	{
+		return "Title:= " + title + ", Notes:= " + notes + ", Due Date:= " + date + ", Remind at:= " + remindMeFromNowOn; 
 	}
 	
 }

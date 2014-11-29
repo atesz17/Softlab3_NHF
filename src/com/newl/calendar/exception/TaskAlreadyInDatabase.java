@@ -1,4 +1,4 @@
-package com.newl.calendar;
+package com.newl.calendar.exception;
 
 public class TaskAlreadyInDatabase extends Exception {
 

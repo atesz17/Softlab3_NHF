@@ -2,6 +2,9 @@ package com.newl.calendar;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -12,6 +15,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+
+import com.newl.calendar.exception.EmptyTitleInTask;
+import com.newl.calendar.exception.InvalidTask;
+import com.newl.calendar.exception.TaskAlreadyInDatabase;
 
 public class TaskView extends JFrame {
 
@@ -70,11 +77,20 @@ public class TaskView extends JFrame {
         JPanel datesPanel = new JPanel();
         datesPanel.setLayout(new BoxLayout(datesPanel, BoxLayout.Y_AXIS));
         
-        datesPanel.add(new JLabel("Due date:"));
+    	Integer[] years = {Calendar.getInstance().getWeekYear(), Calendar.getInstance().getWeekYear() + 1, Calendar.getInstance().getWeekYear() + 2, Calendar.getInstance().getWeekYear() + 3};
+    	String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+    	Integer[] days = new Integer[31];
+    	for (int i = 0; i < 31; i++)
+    		days[i] = i+1;
+    
+        datesPanel.add(new JLabel("Due date:"));        
         JPanel dueDatePanel = new JPanel();        
         JComboBox<Integer> dateY = new JComboBox<Integer>();
+		initComboBoxWithIntegers(dateY, years);
         JComboBox<String> dateM = new JComboBox<String>();
+        initComboBoxWIthStrings(dateM, months);
         JComboBox<Integer> dateD = new JComboBox<Integer>();
+        initComboBoxWithIntegers(dateD, days);
         dueDatePanel.add(new JLabel("Year:"));
         dueDatePanel.add(dateY);
         dueDatePanel.add(new JLabel("Month:"));
@@ -86,8 +102,11 @@ public class TaskView extends JFrame {
         datesPanel.add(new JLabel("Remind me after:"));
         JPanel remindDatePanel = new JPanel();        
         JComboBox<Integer> remindY = new JComboBox<Integer>();
+        initComboBoxWithIntegers(remindY, years);
         JComboBox<String> remindM = new JComboBox<String>();
+        initComboBoxWIthStrings(remindM, months);
         JComboBox<Integer> remindD = new JComboBox<Integer>();
+        initComboBoxWithIntegers(remindD, days);
         remindDatePanel.add(new JLabel("Year:"));
         remindDatePanel.add(remindY);
         remindDatePanel.add(new JLabel("Month:"));
@@ -102,10 +121,50 @@ public class TaskView extends JFrame {
         JButton addButton = new JButton("Add");
         buttonPanel.add(addButton);
         
+        addButton.addActionListener(new ActionListener()	{
+        	
+        	@Override
+        	public void actionPerformed(ActionEvent arg0)	{
+        		
+        		try	{
+        			makeTask(null, null, null, null);
+        			data.attemptToAddTask(null); // null van itt!!!
+        		}
+        		catch (InvalidTask e)	{
+        			
+        		}
+        		catch(TaskAlreadyInDatabase e)	{
+        			
+        		}
+        		catch(EmptyTitleInTask e){
+        			
+        		}
+        	}
+        });
+        
         inputPanel.add(buttonPanel);
         
         data.tryy();
         System.out.println("initComponents Done!");
+	}
+	
+	void initComboBoxWIthStrings(JComboBox<String> c, String[] s)	{
+		
+		for (String element : s)
+			c.addItem(element);
+	}
+	
+	void initComboBoxWithIntegers(JComboBox<Integer> c, Integer[] i)	{
+		
+		for (Integer element : i)
+			c.addItem(element);
+	}
+	
+	Task makeTask(String title, String notes, Calendar dueDate, Calendar remindDate) throws EmptyTitleInTask	{
+		
+		if (title.equals(""))
+			throw new EmptyTitleInTask();
+		return new Task(title, notes, dueDate, remindDate);
 	}
 	
 	public TaskView()	{

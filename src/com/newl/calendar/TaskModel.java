@@ -6,6 +6,9 @@ import java.util.Collections;
 
 import javax.swing.table.AbstractTableModel;
 
+import com.newl.calendar.exception.InvalidTask;
+import com.newl.calendar.exception.TaskAlreadyInDatabase;
+
 public class TaskModel extends AbstractTableModel {
 
 	/**
@@ -60,7 +63,7 @@ public class TaskModel extends AbstractTableModel {
 	 * @param t A Task amit be szeretnenk szurni.
 	 * @throws TaskAlreadyInDatabase Ha a megadott task mar letezik.
 	 */
-	public void addTask(Task t) throws TaskAlreadyInDatabase	{
+	void addTask(Task t) throws TaskAlreadyInDatabase	{
 		
 		if (tasks.contains(t))
 			throw new TaskAlreadyInDatabase();
@@ -69,6 +72,20 @@ public class TaskModel extends AbstractTableModel {
 		Collections.sort(tasks, new TaskComparator());
 	
 		fireTableRowsInserted(tasks.size() - 1, tasks.size() - 1);
+	}
+	
+	boolean isValid(Task t)	{
+		
+		
+		return true;
+		
+	}
+	
+	public void attemptToAddTask(Task t) throws TaskAlreadyInDatabase, InvalidTask	{
+		
+		if (!isValid(t))
+			throw new InvalidTask();
+		addTask(t);
 	}
 
 	public void tryy()	{

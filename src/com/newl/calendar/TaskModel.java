@@ -76,7 +76,8 @@ public class TaskModel extends AbstractTableModel {
 	
 	boolean isValid(Task t)	{
 		
-		
+		if (t.getDate().equals(t.getRemindDate()))
+			return false;
 		return true;
 		
 	}

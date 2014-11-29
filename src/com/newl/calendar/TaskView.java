@@ -127,11 +127,11 @@ public class TaskView extends JFrame {
         	public void actionPerformed(ActionEvent arg0)	{
         		
         		try	{
-        			makeTask(titleField.getText(),
+        			Task t = makeTask(titleField.getText(),
         					notesField.getText(),
         					(Integer)dateY.getSelectedItem(), (Integer)dateM.getSelectedItem(), (Integer)dateD.getSelectedItem(),
         					(Integer)remindY.getSelectedItem(), (Integer)remindM.getSelectedItem(), (Integer)remindD.getSelectedItem());
-        			data.attemptToAddTask(null); // null van itt!!!
+        			data.attemptToAddTask(t); // null van itt!!!
         		}
         		catch (InvalidTask e)	{
         			
@@ -174,7 +174,8 @@ public class TaskView extends JFrame {
 		Calendar dueDate = Calendar.getInstance();
 		Calendar remindDate = Calendar.getInstance();
 		
-		
+		dueDate.set(dY, dM, dD);
+		remindDate.set(rY, rM, rD);
 		
 		return new Task(title, notes, dueDate, remindDate);
 	}

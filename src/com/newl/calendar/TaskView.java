@@ -78,7 +78,7 @@ public class TaskView extends JFrame {
         datesPanel.setLayout(new BoxLayout(datesPanel, BoxLayout.Y_AXIS));
         
     	Integer[] years = {Calendar.getInstance().getWeekYear(), Calendar.getInstance().getWeekYear() + 1, Calendar.getInstance().getWeekYear() + 2, Calendar.getInstance().getWeekYear() + 3};
-    	String[] months = {"January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"};
+    	Integer[] months = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
     	Integer[] days = new Integer[31];
     	for (int i = 0; i < 31; i++)
     		days[i] = i+1;
@@ -87,8 +87,8 @@ public class TaskView extends JFrame {
         JPanel dueDatePanel = new JPanel();        
         JComboBox<Integer> dateY = new JComboBox<Integer>();
 		initComboBoxWithIntegers(dateY, years);
-        JComboBox<String> dateM = new JComboBox<String>();
-        initComboBoxWIthStrings(dateM, months);
+        JComboBox<Integer> dateM = new JComboBox<Integer>();
+        initComboBoxWithIntegers(dateM, months);
         JComboBox<Integer> dateD = new JComboBox<Integer>();
         initComboBoxWithIntegers(dateD, days);
         dueDatePanel.add(new JLabel("Year:"));
@@ -103,8 +103,8 @@ public class TaskView extends JFrame {
         JPanel remindDatePanel = new JPanel();        
         JComboBox<Integer> remindY = new JComboBox<Integer>();
         initComboBoxWithIntegers(remindY, years);
-        JComboBox<String> remindM = new JComboBox<String>();
-        initComboBoxWIthStrings(remindM, months);
+        JComboBox<Integer> remindM = new JComboBox<Integer>();
+        initComboBoxWithIntegers(remindM, months);
         JComboBox<Integer> remindD = new JComboBox<Integer>();
         initComboBoxWithIntegers(remindD, days);
         remindDatePanel.add(new JLabel("Year:"));
@@ -127,7 +127,10 @@ public class TaskView extends JFrame {
         	public void actionPerformed(ActionEvent arg0)	{
         		
         		try	{
-        			makeTask(null, null, null, null);
+        			makeTask(titleField.getText(),
+        					notesField.getText(),
+        					(Integer)dateY.getSelectedItem(), (Integer)dateM.getSelectedItem(), (Integer)dateD.getSelectedItem(),
+        					(Integer)remindY.getSelectedItem(), (Integer)remindM.getSelectedItem(), (Integer)remindD.getSelectedItem());
         			data.attemptToAddTask(null); // null van itt!!!
         		}
         		catch (InvalidTask e)	{
@@ -160,10 +163,19 @@ public class TaskView extends JFrame {
 			c.addItem(element);
 	}
 	
-	Task makeTask(String title, String notes, Calendar dueDate, Calendar remindDate) throws EmptyTitleInTask	{
+	Task makeTask(String title, String notes,
+			Integer dY, Integer dM, Integer dD,
+			Integer rY, Integer rM, Integer rD)
+					throws EmptyTitleInTask	{
 		
 		if (title.equals(""))
 			throw new EmptyTitleInTask();
+		
+		Calendar dueDate = Calendar.getInstance();
+		Calendar remindDate = Calendar.getInstance();
+		
+		
+		
 		return new Task(title, notes, dueDate, remindDate);
 	}
 	

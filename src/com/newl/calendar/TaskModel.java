@@ -38,7 +38,7 @@ public class TaskModel extends AbstractTableModel {
 		switch(columnIndex){
 		case 0:		return t.getTitle();
 		case 1: 	return t.getNotes();
-		default:	return t.getDate();
+		default:	return t.getYMDInString();
 		}
 	}
 	
@@ -53,7 +53,7 @@ public class TaskModel extends AbstractTableModel {
 		switch(columnIndex){
 		case 0:		return String.class;
 		case 1:		return String.class;
-		default:	return Calendar.class;
+		default:	return String.class;
 		}
 	}
 	
@@ -95,10 +95,5 @@ public class TaskModel extends AbstractTableModel {
 		if (!isValid(t))
 			throw new InvalidTask();
 		addTask(t);
-	}
-
-	public void tryy()	{
-		for (int i = 0; i < 99; i++)
-			tasks.add(new Task("a" + i,"be" + i, Calendar.getInstance(), Calendar.getInstance()));
 	}
 }

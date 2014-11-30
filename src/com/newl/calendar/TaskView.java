@@ -131,7 +131,7 @@ public class TaskView extends JFrame {
         					notesField.getText(),
         					(Integer)dateY.getSelectedItem(), (Integer)dateM.getSelectedItem(), (Integer)dateD.getSelectedItem(),
         					(Integer)remindY.getSelectedItem(), (Integer)remindM.getSelectedItem(), (Integer)remindD.getSelectedItem());
-        			data.attemptToAddTask(t); // null van itt!!!
+        			data.attemptToAddTask(t);
         		}
         		catch (InvalidTask e)	{
         			System.out.println(e.getMessage());

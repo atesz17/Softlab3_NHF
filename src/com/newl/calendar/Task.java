@@ -56,6 +56,10 @@ public class Task implements Serializable, Comparable<Task> {
 		this.remindMeFromNowOn = r;
 	}
 	
+	public String getYMDInString()	{
+		return date.get(Calendar.YEAR) + "." + date.get(Calendar.MONTH) + "." + date.get(Calendar.DAY_OF_MONTH);
+	}
+	
 	public Boolean isUrgent()	{
 		if (Calendar.getInstance().after(remindMeFromNowOn))
 			return true;

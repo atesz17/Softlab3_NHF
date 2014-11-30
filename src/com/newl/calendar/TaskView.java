@@ -134,13 +134,13 @@ public class TaskView extends JFrame {
         			data.attemptToAddTask(t); // null van itt!!!
         		}
         		catch (InvalidTask e)	{
-        			
+        			System.out.println(e.getMessage());
         		}
         		catch(TaskAlreadyInDatabase e)	{
-        			
+        			System.out.println(e.getMessage());
         		}
         		catch(EmptyTitleInTask e){
-        			
+        			System.out.println(e.getMessage());
         		}
         	}
         });
@@ -175,7 +175,16 @@ public class TaskView extends JFrame {
 		Calendar remindDate = Calendar.getInstance();
 		
 		dueDate.set(dY, dM, dD);
+		dueDate.set(Calendar.HOUR_OF_DAY, 0);
+		dueDate.set(Calendar.MINUTE, 0);
+		dueDate.set(Calendar.SECOND, 0);
+		dueDate.set(Calendar.MILLISECOND, 0);
+		
 		remindDate.set(rY, rM, rD);
+		remindDate.set(Calendar.HOUR_OF_DAY, 0);
+		remindDate.set(Calendar.MINUTE, 0);
+		remindDate.set(Calendar.SECOND, 0);
+		remindDate.set(Calendar.MILLISECOND, 0);
 		
 		return new Task(title, notes, dueDate, remindDate);
 	}

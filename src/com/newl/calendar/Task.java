@@ -79,9 +79,11 @@ public class Task implements Serializable, Comparable<Task> {
 	@Override
 	public boolean equals(Object other)	{
 		
-		if (compareTo((Task)other) == 0)
-			return true;
-		return false;
+		if (!title.equals(((Task)other).title))
+			return false;
+		if (!date.equals(((Task)other).date))
+			return false;
+		return true;
 	}
 	
 	@Override

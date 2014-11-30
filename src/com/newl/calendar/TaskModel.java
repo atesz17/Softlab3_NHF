@@ -75,6 +75,8 @@ public class TaskModel extends AbstractTableModel {
 		// Kiirjuk az elemeket, amiket tarolunk
 		for (Task ct : tasks)
 			System.out.println(ct);
+		System.out.println();
+		// DEBUG END
 		
 		fireTableRowsInserted(tasks.size() - 1, tasks.size() - 1);
 	}

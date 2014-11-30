@@ -79,6 +79,7 @@ public class TaskModel extends AbstractTableModel {
 		// DEBUG END
 		
 		fireTableRowsInserted(tasks.size() - 1, tasks.size() - 1);
+		fireTableDataChanged();
 	}
 	
 	boolean isValid(Task t)	{

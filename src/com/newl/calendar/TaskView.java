@@ -150,6 +150,9 @@ public class TaskView extends JFrame{
 					
 					initComboBoxWithMonthAfterToday(dateM);
 				}
+				
+				changeRemindDateIfNecessary((Integer)dateY.getSelectedItem(), (Integer)dateM.getSelectedItem(), (Integer)dateD.getSelectedItem(),
+						remindY, remindM, remindD);
 			}
         });
        
@@ -243,6 +246,27 @@ public class TaskView extends JFrame{
 		int totalDays = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
 		for (int i = Calendar.getInstance().get(Calendar.DAY_OF_MONTH); i <= totalDays; i++)
 			day.addItem(i);
+	}
+	
+	void changeRemindDateIfNecessary(int year, int month, int day, JComboBox<Integer> y, JComboBox<Integer> m, JComboBox<Integer> d)	{
+		
+		Calendar date = new GregorianCalendar(year, month, day);
+		date.set(Calendar.HOUR_OF_DAY, 0);
+		date.set(Calendar.MINUTE, 0);
+		date.set(Calendar.SECOND, 0);
+		date.set(Calendar.MILLISECOND, 0);
+		Calendar rDate = new GregorianCalendar((Integer)y.getSelectedItem(), (Integer)m.getSelectedItem(), (Integer)d.getSelectedItem());
+		rDate.set(Calendar.HOUR_OF_DAY, 0);
+		rDate.set(Calendar.MINUTE, 0);
+		rDate.set(Calendar.SECOND, 0);
+		rDate.set(Calendar.MILLISECOND, 0);
+		
+		if (date.after(rDate))	{
+			rDate = date;
+			y.setSelectedItem(year);
+			m.setSelectedItem(month);
+			d.setSelectedItem(day);
+		}
 	}
 	
 	Task makeTask(String title, String notes,

@@ -4,6 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -361,6 +368,30 @@ public class TaskView extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		data = new TaskModel();
+		
+		try	{
+			ObjectInputStream ois = new ObjectInputStream(new FileInputStream("tasks.dat"));
+			data.tasks = (ArrayList<Task>)ois.readObject();
+			ois.close();
+		}
+		catch(Exception e)	{
+			System.err.println(e.getMessage());
+		}
+		
+		addWindowListener(new WindowAdapter(){
+			
+			@Override
+			public void windowClosing(WindowEvent e)	{
+				try	{
+					ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("tasks.dat"));
+					oos.writeObject(data.tasks);
+					oos.close();
+				}
+				catch(Exception ex)	{
+					System.err.println(ex.getMessage());
+				}
+			}
+		});
 		
 		initComponents();
 		setPreferredSize(new Dimension(1300, 760));

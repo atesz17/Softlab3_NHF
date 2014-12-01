@@ -17,7 +17,7 @@ public class TaskModel extends AbstractTableModel {
 	
 	private String[] columnNames = {"Title", "Description", "Date"};
 	
-	private ArrayList<Task> tasks = new ArrayList<Task>();
+	ArrayList<Task> tasks = new ArrayList<Task>();
 
 	@Override
 	public int getColumnCount() {

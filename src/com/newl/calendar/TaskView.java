@@ -21,7 +21,7 @@ import com.newl.calendar.exception.EmptyTitleInTask;
 import com.newl.calendar.exception.InvalidTask;
 import com.newl.calendar.exception.TaskAlreadyInDatabase;
 
-public class TaskView extends JFrame {
+public class TaskView extends JFrame{
 
 	/**
 	 * 
@@ -78,21 +78,23 @@ public class TaskView extends JFrame {
         JPanel datesPanel = new JPanel();
         datesPanel.setLayout(new BoxLayout(datesPanel, BoxLayout.Y_AXIS));
         
+        /*
     	Integer[] years = {Calendar.getInstance().getWeekYear(), Calendar.getInstance().getWeekYear() + 1, Calendar.getInstance().getWeekYear() + 2, Calendar.getInstance().getWeekYear() + 3};
     	Integer[] months = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
     	Integer[] days = new Integer[31];
     	for (int i = 0; i < 31; i++)
     		days[i] = i+1;
-    
+    		*/
+    	
+    	
         datesPanel.add(new JLabel("Due date:"));        
         JPanel dueDatePanel = new JPanel();        
         JComboBox<Integer> dateY = new JComboBox<Integer>();
-		//initComboBoxWithIntegers(dateY, years);
         initComboBoxWithYearAfterToday(dateY);
         JComboBox<Integer> dateM = new JComboBox<Integer>();
-        initComboBoxWithIntegers(dateM, months);
+        initComboBoxWithMonthAfterToday(dateM);
         JComboBox<Integer> dateD = new JComboBox<Integer>();
-        initComboBoxWithIntegers(dateD, days);
+        initComboBoxWithDayAfterToday(dateD);
         dueDatePanel.add(new JLabel("Year:"));
         dueDatePanel.add(dateY);
         dueDatePanel.add(new JLabel("Month:"));
@@ -104,11 +106,11 @@ public class TaskView extends JFrame {
         datesPanel.add(new JLabel("Remind me after:"));
         JPanel remindDatePanel = new JPanel();        
         JComboBox<Integer> remindY = new JComboBox<Integer>();
-        initComboBoxWithIntegers(remindY, years);
+        initComboBoxWithYearAfterToday(remindY);
         JComboBox<Integer> remindM = new JComboBox<Integer>();
-        initComboBoxWithIntegers(remindM, months);
+        initComboBoxWithMonthAfterToday(remindM);
         JComboBox<Integer> remindD = new JComboBox<Integer>();
-        initComboBoxWithIntegers(remindD, days);
+        initComboBoxWithDayAfterToday(remindD);
         remindDatePanel.add(new JLabel("Year:"));
         remindDatePanel.add(remindY);
         remindDatePanel.add(new JLabel("Month:"));
@@ -118,6 +120,17 @@ public class TaskView extends JFrame {
         datesPanel.add(remindDatePanel);
         
         inputPanel.add(datesPanel);
+              
+        class ComboBoxYearsMonthsDaysListener implements ActionListener	{
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				Calendar date = Calendar.getInstance();
+				
+			}
+    		
+    	}
         
         JPanel buttonPanel = new JPanel();
         JButton addButton = new JButton("Add");
@@ -171,18 +184,23 @@ public class TaskView extends JFrame {
 	
 	void initComboBoxWithYearAfterToday(JComboBox<Integer> c)	{
 		
-		Integer year = Calendar.getInstance().get(Calendar.YEAR);
+		int year = Calendar.getInstance().get(Calendar.YEAR);
 		for (int i = year; i < year + 10; i++)
 			c.addItem(i);
 	}
 	
-	/*
-	void initComboBoxWithDaysInYearMonth(JComboBox<Integer> year, JComboBox<Integer> month, JComboBox<Integer> days){
+	void initComboBoxWithMonthAfterToday(JComboBox<Integer> month){
 		
-		Calendar date = Calendar.getInstance();
-		date.set(year.getSelectedIndex(), month.getSelectedIndex(), 1);
+		for (int i = Calendar.getInstance().get(Calendar.MONTH); i < 12; i++)
+			month.addItem(i + 1); // 0tol 11ig vannak a honapok
 	}
-	*/
+	
+	void initComboBoxWithDayAfterToday(JComboBox<Integer> day){
+		
+		int totalDays = Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH);
+		for (int i = Calendar.getInstance().get(Calendar.DAY_OF_MONTH); i <= totalDays; i++)
+			day.addItem(i);
+	}
 	
 	Task makeTask(String title, String notes,
 			Integer dY, Integer dM, Integer dD,

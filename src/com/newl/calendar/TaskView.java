@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -120,18 +121,53 @@ public class TaskView extends JFrame{
         datesPanel.add(remindDatePanel);
         
         inputPanel.add(datesPanel);
-              
-        class ComboBoxYearsMonthsDaysListener implements ActionListener	{
+        
+        dateY.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				Calendar date = Calendar.getInstance();
-				
+				if ((Integer)dateY.getSelectedItem() > Calendar.getInstance().get(Calendar.YEAR))	{
+					
+					// Kenyelmi funkcio, eltaroljuk az elozoleg kijelolt elemnek a poziciojat, hatha a masik evben is ki lehet valasztani
+					int prevSelected = (Integer)dateM.getSelectedItem();
+					int prevCount = dateM.getItemCount();
+					
+					while(dateM.getItemCount() > 0)
+						dateM.removeItemAt(0);
+					
+					for (int i = 0; i < 12; i++)
+						dateM.addItem(i+1);
+					
+					if (prevCount == dateM.getItemCount())
+						dateM.setSelectedIndex(prevSelected - 1); // 1es offseteles
+				}
+				else if ((Integer)dateY.getSelectedItem() == Calendar.getInstance().get(Calendar.YEAR))	{
+					
+					while(dateM.getItemCount() > 0)
+						dateM.removeItemAt(0);
+					
+					initComboBoxWithMonthAfterToday(dateM);
+				}
 			}
-    		
-    	}
-        
+        });
+        /*
+        dateM.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				Calendar c = new GregorianCalendar((Integer)dateY.getSelectedItem(), (Integer)dateM.getSelectedItem() - 1, 1); // 1es offseteles
+				int dayCount = c.getActualMaximum(Calendar.DAY_OF_MONTH);
+				while(dateD.getItemCount() > 0)
+					dateD.removeItemAt(0);
+				
+				for (int i = 0; i < dayCount; i++)
+					dateD.addItem(i+1);
+			}
+        	
+        });
+        */
         JPanel buttonPanel = new JPanel();
         JButton addButton = new JButton("Add");
         buttonPanel.add(addButton);

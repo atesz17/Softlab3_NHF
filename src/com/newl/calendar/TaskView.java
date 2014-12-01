@@ -16,6 +16,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.SwingUtilities;
 
 import com.newl.calendar.exception.DueDateIsInThePast;
 import com.newl.calendar.exception.EmptyTitleInTask;
@@ -151,23 +152,29 @@ public class TaskView extends JFrame{
 				}
 			}
         });
-        /*
+       
+        
         dateM.addActionListener(new ActionListener(){
 
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				Calendar c = new GregorianCalendar((Integer)dateY.getSelectedItem(), (Integer)dateM.getSelectedItem() - 1, 1); // 1es offseteles
-				int dayCount = c.getActualMaximum(Calendar.DAY_OF_MONTH);
-				while(dateD.getItemCount() > 0)
-					dateD.removeItemAt(0);
-				
-				for (int i = 0; i < dayCount; i++)
-					dateD.addItem(i+1);
+				SwingUtilities.invokeLater(
+						new Runnable(){
+							public void run(){
+								Calendar c = new GregorianCalendar((Integer)dateY.getSelectedItem(), (Integer)dateM.getSelectedItem() - 1, 1); // 1es offseteles
+								int dayCount = c.getActualMaximum(Calendar.DAY_OF_MONTH);
+								while(dateD.getItemCount() > 0)
+									dateD.removeItemAt(0);
+								
+								for (int i = 0; i < dayCount; i++)
+									dateD.addItem(i+1);			
+						}
+					}
+				);
 			}
-        	
         });
-        */
+   
         JPanel buttonPanel = new JPanel();
         JButton addButton = new JButton("Add");
         buttonPanel.add(addButton);

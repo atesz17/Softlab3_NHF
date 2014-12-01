@@ -1,7 +1,6 @@
 package com.newl.calendar;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 
 import javax.swing.table.AbstractTableModel;

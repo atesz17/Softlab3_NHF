@@ -1,6 +1,7 @@
 package com.newl.calendar;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class Task implements Serializable, Comparable<Task> {
@@ -57,7 +58,10 @@ public class Task implements Serializable, Comparable<Task> {
 	}
 	
 	public String getYMDInString()	{
-		return date.get(Calendar.YEAR) + "." + date.get(Calendar.MONTH) + "." + date.get(Calendar.DAY_OF_MONTH);
+		
+		SimpleDateFormat formatum = new SimpleDateFormat("yyyy-MM-dd");
+		String formatted = formatum.format(date.getTime());
+		return formatted;
 	}
 	
 	public Boolean isUrgent()	{

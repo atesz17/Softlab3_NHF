@@ -336,16 +336,17 @@ public class TaskView extends JFrame{
 		Calendar dueDate = Calendar.getInstance();
 		Calendar remindDate = Calendar.getInstance();
 		
-		dueDate.set(dY, dM, dD);
+		dueDate.set(dY, dM - 1, dD); //1es offset
 		dueDate.set(Calendar.HOUR_OF_DAY, 0);
 		dueDate.set(Calendar.MINUTE, 0);
 		dueDate.set(Calendar.SECOND, 0);
 		dueDate.set(Calendar.MILLISECOND, 0);
 		
-		if (dueDate.before(Calendar.getInstance()))
+		
+		if (dueDate.before(new GregorianCalendar(Calendar.getInstance().get(Calendar.YEAR), Calendar.getInstance().get(Calendar.MONTH), Calendar.getInstance().get(Calendar.DAY_OF_MONTH))))
 			throw new DueDateIsInThePast();
 		
-		remindDate.set(rY, rM, rD);
+		remindDate.set(rY, rM - 1, rD); //1es offset
 		remindDate.set(Calendar.HOUR_OF_DAY, 0);
 		remindDate.set(Calendar.MINUTE, 0);
 		remindDate.set(Calendar.SECOND, 0);

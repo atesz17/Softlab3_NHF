@@ -3,9 +3,6 @@ Softlab3_NHF
 
 TODO:
 
-duedate automatikusan legyen a mai datum
-meg kene oldani, hogy tenyleg annyi nap legyen a honapban, mint a valosagban es ne mindehol 31
-Egy szamjegyu honapok 01 formatumban
 
 Calendar
 ============

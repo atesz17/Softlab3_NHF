@@ -16,6 +16,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 
+import com.newl.calendar.exception.DueDateIsInThePast;
 import com.newl.calendar.exception.EmptyTitleInTask;
 import com.newl.calendar.exception.InvalidTask;
 import com.newl.calendar.exception.TaskAlreadyInDatabase;
@@ -86,7 +87,8 @@ public class TaskView extends JFrame {
         datesPanel.add(new JLabel("Due date:"));        
         JPanel dueDatePanel = new JPanel();        
         JComboBox<Integer> dateY = new JComboBox<Integer>();
-		initComboBoxWithIntegers(dateY, years);
+		//initComboBoxWithIntegers(dateY, years);
+        initComboBoxWithYearAfterToday(dateY);
         JComboBox<Integer> dateM = new JComboBox<Integer>();
         initComboBoxWithIntegers(dateM, months);
         JComboBox<Integer> dateD = new JComboBox<Integer>();
@@ -134,16 +136,20 @@ public class TaskView extends JFrame {
         			data.attemptToAddTask(t);
         		}
         		catch (InvalidTask e)	{
-        			System.out.println(e.getMessage());
+        			System.err.println(e.getMessage());
         		}
         		catch(TaskAlreadyInDatabase e)	{
-        			System.out.println(e.getMessage());
+        			System.err.println(e.getMessage());
         		}
         		catch(EmptyTitleInTask e){
-        			System.out.println(e.getMessage());
+        			System.err.println(e.getMessage());
+        		}
+        		catch(DueDateIsInThePast e){
+        			System.err.println(e.getMessage());
         		}
         	}
         });
+        
         
         inputPanel.add(buttonPanel);
         
@@ -163,10 +169,25 @@ public class TaskView extends JFrame {
 			c.addItem(element);
 	}
 	
+	void initComboBoxWithYearAfterToday(JComboBox<Integer> c)	{
+		
+		Integer year = Calendar.getInstance().get(Calendar.YEAR);
+		for (int i = year; i < year + 10; i++)
+			c.addItem(i);
+	}
+	
+	/*
+	void initComboBoxWithDaysInYearMonth(JComboBox<Integer> year, JComboBox<Integer> month, JComboBox<Integer> days){
+		
+		Calendar date = Calendar.getInstance();
+		date.set(year.getSelectedIndex(), month.getSelectedIndex(), 1);
+	}
+	*/
+	
 	Task makeTask(String title, String notes,
 			Integer dY, Integer dM, Integer dD,
 			Integer rY, Integer rM, Integer rD)
-					throws EmptyTitleInTask	{
+					throws EmptyTitleInTask, DueDateIsInThePast	{
 		
 		if (title.equals(""))
 			throw new EmptyTitleInTask();
@@ -180,11 +201,15 @@ public class TaskView extends JFrame {
 		dueDate.set(Calendar.SECOND, 0);
 		dueDate.set(Calendar.MILLISECOND, 0);
 		
+		if (dueDate.before(Calendar.getInstance()))
+			throw new DueDateIsInThePast();
+		
 		remindDate.set(rY, rM, rD);
 		remindDate.set(Calendar.HOUR_OF_DAY, 0);
 		remindDate.set(Calendar.MINUTE, 0);
 		remindDate.set(Calendar.SECOND, 0);
 		remindDate.set(Calendar.MILLISECOND, 0);
+		
 		
 		return new Task(title, notes, dueDate, remindDate);
 	}

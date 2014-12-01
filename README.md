@@ -3,8 +3,6 @@ Softlab3_NHF
 
 TODO:
 
-Fel lehet venni ugy datumot, hogy megegyezik a remind es a due
-Ne lehessen a remindot a bellitott due elottre tenni
 duedate automatikusan legyen a mai datum
 meg kene oldani, hogy tenyleg annyi nap legyen a honapban, mint a valosagban es ne mindehol 31
 Egy szamjegyu honapok 01 formatumban

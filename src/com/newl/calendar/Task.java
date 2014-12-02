@@ -57,10 +57,10 @@ public class Task implements Serializable, Comparable<Task> {
 		this.remindMeFromNowOn = r;
 	}
 	
-	public String getYMDInString()	{
+	public String getYMDInString(Calendar d)	{
 		
 		SimpleDateFormat formatum = new SimpleDateFormat("yyyy-MM-dd");
-		String formatted = formatum.format(date.getTime());
+		String formatted = formatum.format(d.getTime());
 		return formatted;
 	}
 	

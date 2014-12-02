@@ -37,7 +37,7 @@ public class TaskModel extends AbstractTableModel {
 		switch(columnIndex){
 		case 0:		return t.getTitle();
 		case 1: 	return t.getNotes();
-		default:	return t.getYMDInString();
+		default:	return t.getYMDInString(t.getDate());
 		}
 	}
 	

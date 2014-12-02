@@ -2,7 +2,7 @@ Softlab3_NHF
 ============
 
 TODO:
-JUnit
+
 Torles
 Szinezes
 Szerkesztes

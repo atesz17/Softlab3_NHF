@@ -27,6 +27,7 @@ import javax.swing.SwingUtilities;
 
 import com.newl.calendar.exception.DueDateIsInThePast;
 import com.newl.calendar.exception.EmptyTitleInTask;
+import com.newl.calendar.exception.ErrorWindow;
 import com.newl.calendar.exception.InvalidTask;
 import com.newl.calendar.exception.TaskAlreadyInDatabase;
 
@@ -259,15 +260,19 @@ public class TaskView extends JFrame{
         		}
         		catch (InvalidTask e)	{
         			System.err.println(e.getMessage());
+        			new ErrorWindow(e);
         		}
         		catch(TaskAlreadyInDatabase e)	{
         			System.err.println(e.getMessage());
+        			new ErrorWindow(e);
         		}
         		catch(EmptyTitleInTask e){
         			System.err.println(e.getMessage());
+        			new ErrorWindow(e);
         		}
         		catch(DueDateIsInThePast e){
         			System.err.println(e.getMessage());
+        			new ErrorWindow(e);
         		}
         	}
         });

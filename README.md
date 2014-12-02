@@ -2,7 +2,6 @@ Softlab3_NHF
 ============
 
 TODO:
-Serializalas
 JUnit
 Torles
 Szinezes

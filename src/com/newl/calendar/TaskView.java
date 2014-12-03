@@ -62,8 +62,7 @@ public class TaskView extends JFrame{
         table.setVisible(true);
 		JScrollPane scrollPane = new JScrollPane(table);
         tablePanel.add(scrollPane, BorderLayout.CENTER);
-        //tablePanel.setPreferredSize(new Dimension(400, 400)); ez valamiert nem mukodik
-        add(tablePanel); // itt nincs masodik parameter es ugy tunik kitolti a helyet, szval meno
+        add(tablePanel);
         
       //render
         int i = 0;
@@ -98,14 +97,6 @@ public class TaskView extends JFrame{
         JPanel datesPanel = new JPanel();
         datesPanel.setLayout(new BoxLayout(datesPanel, BoxLayout.Y_AXIS));
         
-        /*
-    	Integer[] years = {Calendar.getInstance().getWeekYear(), Calendar.getInstance().getWeekYear() + 1, Calendar.getInstance().getWeekYear() + 2, Calendar.getInstance().getWeekYear() + 3};
-    	Integer[] months = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
-    	Integer[] days = new Integer[31];
-    	for (int i = 0; i < 31; i++)
-    		days[i] = i+1;
-    		*/
-    	
     	
         datesPanel.add(new JLabel("Due date:"));        
         JPanel dueDatePanel = new JPanel();        
@@ -293,7 +284,7 @@ public class TaskView extends JFrame{
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				// TODO Auto-generated method stub
+				
 				try	{
 					data.removeTask(table.getSelectedRow());
 				}
@@ -311,18 +302,6 @@ public class TaskView extends JFrame{
         System.out.println("initComponents Done!");
         }
         
-	}
-	
-	void initComboBoxWIthStrings(JComboBox<String> c, String[] s)	{
-		
-		for (String element : s)
-			c.addItem(element);
-	}
-	
-	void initComboBoxWithIntegers(JComboBox<Integer> c, Integer[] i)	{
-		
-		for (Integer element : i)
-			c.addItem(element);
 	}
 	
 	void initComboBoxWithYearAfterToday(JComboBox<Integer> c)	{
@@ -442,14 +421,13 @@ public class TaskView extends JFrame{
 		private TableCellRenderer renderer;
 		
 		public TaskTableCellRenderer(TableCellRenderer defRenderer) {
-			// TODO Auto-generated constructor stub
 			renderer = defRenderer;
 		}
 		
 		@Override
 		public Component getTableCellRendererComponent(JTable table,
 				Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-			// TODO Auto-generated method stub
+			
 			Component component = renderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 			
 			if (column < 2)
@@ -467,8 +445,7 @@ public class TaskView extends JFrame{
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
+		
 		TaskView t = new TaskView();
 		t.setVisible(true);
 	}

@@ -21,7 +21,7 @@ public class ErrorWindow extends JFrame {
 	public ErrorWindow(Exception e)	{
 		
 		super("Error!");
-		setDefaultCloseOperation(HIDE_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		
 		setPreferredSize(new Dimension(400, 100));
 		setMinimumSize(new Dimension(400, 100));
@@ -36,52 +36,5 @@ public class ErrorWindow extends JFrame {
 		errorMsg.setVerticalAlignment(JLabel.CENTER);
 		errorMsg.setForeground(Color.RED);
 		add(errorMsg, BorderLayout.CENTER);
-		
-		addWindowListener(new WindowListener(){
-
-			@Override
-			public void windowActivated(WindowEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void windowClosed(WindowEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void windowClosing(WindowEvent arg0) {
-				// TODO Auto-generated method stub
-				dispose();
-				System.out.println("Error window is closing. Disposing.");
-			}
-
-			@Override
-			public void windowDeactivated(WindowEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void windowDeiconified(WindowEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void windowIconified(WindowEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void windowOpened(WindowEvent arg0) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-		});
 	}
 }

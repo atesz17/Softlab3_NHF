@@ -3,9 +3,7 @@ Softlab3_NHF
 
 TODO:
 
-Torles
-Szinezes
-Szerkesztes
+Dokumentacio
 
 Calendar
 ============

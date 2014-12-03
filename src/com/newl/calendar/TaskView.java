@@ -1,11 +1,11 @@
 package com.newl.calendar;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.FileInputStream;
@@ -26,6 +26,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.SwingUtilities;
+import javax.swing.table.TableCellRenderer;
 
 import com.newl.calendar.exception.CannotDeleteTaskWithoutSelecting;
 import com.newl.calendar.exception.DueDateIsInThePast;
@@ -63,6 +64,12 @@ public class TaskView extends JFrame{
         tablePanel.add(scrollPane, BorderLayout.CENTER);
         //tablePanel.setPreferredSize(new Dimension(400, 400)); ez valamiert nem mukodik
         add(tablePanel); // itt nincs masodik parameter es ugy tunik kitolti a helyet, szval meno
+        
+      //render
+        int i = 0;
+        while(i < 3)	{
+        	table.setDefaultRenderer(table.getColumnClass(i), new TaskTableCellRenderer(table.getDefaultRenderer(table.getColumnClass(i))));
+        	i++;
         
         /**
          * EAST OLDALA A BORDERLAYOUTNAK
@@ -302,6 +309,8 @@ public class TaskView extends JFrame{
         
         //data.tryy();
         System.out.println("initComponents Done!");
+        }
+        
 	}
 	
 	void initComboBoxWIthStrings(JComboBox<String> c, String[] s)	{
@@ -388,6 +397,7 @@ public class TaskView extends JFrame{
 		return new Task(title, notes, dueDate, remindDate);
 	}
 	
+	@SuppressWarnings("unchecked")
 	public TaskView()	{
 		super("Under Control");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -422,7 +432,38 @@ public class TaskView extends JFrame{
 		setPreferredSize(new Dimension(1300, 760));
 		setMinimumSize(new Dimension(640, 480));
 		
+		
+		
 		System.out.println("TaskView() cnstr Done!");
+	}
+	
+	class TaskTableCellRenderer implements TableCellRenderer	{
+
+		private TableCellRenderer renderer;
+		
+		public TaskTableCellRenderer(TableCellRenderer defRenderer) {
+			// TODO Auto-generated constructor stub
+			renderer = defRenderer;
+		}
+		
+		@Override
+		public Component getTableCellRendererComponent(JTable table,
+				Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+			// TODO Auto-generated method stub
+			Component component = renderer.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
+			
+			if (column < 2)
+				component.setBackground(Color.YELLOW);
+			else	{
+				if (data.tasks.get(row).isUrgent())
+					component.setBackground(Color.RED);
+				else
+					component.setBackground(Color.GREEN);
+			}
+			
+			return component;
+		}
+		
 	}
 
 	public static void main(String[] args) {

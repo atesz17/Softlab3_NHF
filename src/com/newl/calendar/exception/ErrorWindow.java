@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -34,5 +36,52 @@ public class ErrorWindow extends JFrame {
 		errorMsg.setVerticalAlignment(JLabel.CENTER);
 		errorMsg.setForeground(Color.RED);
 		add(errorMsg, BorderLayout.CENTER);
+		
+		addWindowListener(new WindowListener(){
+
+			@Override
+			public void windowActivated(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowClosed(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowClosing(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				dispose();
+				System.out.println("Error window is closing. Disposing.");
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowIconified(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void windowOpened(WindowEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
 	}
 }

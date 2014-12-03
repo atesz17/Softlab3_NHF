@@ -5,6 +5,7 @@ import java.util.Collections;
 
 import javax.swing.table.AbstractTableModel;
 
+import com.newl.calendar.exception.CannotDeleteTaskWithoutSelecting;
 import com.newl.calendar.exception.InvalidTask;
 import com.newl.calendar.exception.TaskAlreadyInDatabase;
 
@@ -94,5 +95,15 @@ public class TaskModel extends AbstractTableModel {
 		if (!isValid(t))
 			throw new InvalidTask();
 		addTask(t);
+	}
+
+	public void removeTask(int selectedRow) throws CannotDeleteTaskWithoutSelecting {
+		// TODO Auto-generated method stub
+		if (selectedRow == -1)
+			throw new CannotDeleteTaskWithoutSelecting();
+		tasks.remove(selectedRow);
+		
+		fireTableRowsDeleted(selectedRow, selectedRow);
+		fireTableDataChanged();
 	}
 }

@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.FileInputStream;
@@ -25,6 +27,7 @@ import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.SwingUtilities;
 
+import com.newl.calendar.exception.CannotDeleteTaskWithoutSelecting;
 import com.newl.calendar.exception.DueDateIsInThePast;
 import com.newl.calendar.exception.EmptyTitleInTask;
 import com.newl.calendar.exception.ErrorWindow;
@@ -277,6 +280,23 @@ public class TaskView extends JFrame{
         	}
         });
         
+        JButton deleteBtn = new JButton("Delete");
+        buttonPanel.add(deleteBtn);
+        deleteBtn.addActionListener(new ActionListener(){
+
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				try	{
+					data.removeTask(table.getSelectedRow());
+				}
+				catch(CannotDeleteTaskWithoutSelecting e){
+					System.err.println(e.getMessage());
+					new ErrorWindow(e);
+				}
+			}
+        	
+        });
         
         inputPanel.add(buttonPanel);
         

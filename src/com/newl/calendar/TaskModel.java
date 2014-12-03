@@ -16,7 +16,7 @@ public class TaskModel extends AbstractTableModel {
 	 */
 	private static final long serialVersionUID = -2589449683766524478L;
 	
-	private String[] columnNames = {"Title", "Description", "Date"};
+	private String[] columnNames = {"Title", "Notes", "Date"};
 	
 	ArrayList<Task> tasks = new ArrayList<Task>();
 
